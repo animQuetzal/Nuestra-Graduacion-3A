@@ -3,135 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación de Graduación</title>
+    <title>Ceremonia de Graduación</title>
     <style>
-        /* Reseteo global para eliminar bordes blancos del navegador */
+        /* RESETEO TOTAL: Cero márgenes y ceros espacios para que todo sea continuo */
         html, body {
             margin: 0;
             padding: 0;
-            background-color: #FFFFFF;
-            font-family: 'Arial', sans-serif;
-            color: #111111;
+            background-color: #000000; /* Fondo negro por si la pantalla es muy ancha */
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
         }
 
-        /* CONTENEDOR DEL CELULAR */
+        /* LIENZO VIRTUAL: Tamaño fijo de celular al centro */
         .canvas-celular {
             max-width: 450px;
             width: 100%;
-            position: relative;
-            box-sizing: border-box;
             background-color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
         }
 
-        /* SECCIÓN HERO: VIDEO A ANCHO COMPLETO */
-        .contenedor-hero-video {
+        /* SECCIONES: Esto elimina la línea blanca invisible entre imágenes */
+        .seccion {
             width: 100%;
-            position: relative;
-            line-height: 0; /* Elimina espacios residuales debajo del video */
-        }
-
-        .video-portada {
-            width: 100%;
-            height: auto;
+            position: relative; /* Necesario para que floten cosas encima */
+            line-height: 0;
+            font-size: 0;
             display: block;
         }
 
-        /* Texto opcional flotando sobre el video (Capa Superior) */
-        .frase-video {
-            position: absolute;
-            bottom: 20px;
-            left: 5%;
-            width: 90%;
+        /* LAS IMÁGENES Y VIDEO: Ajuste exacto a los bordes */
+        .seccion img, .seccion video {
+            width: 100%;
+            height: auto;
             margin: 0;
-            line-height: 1.4;
-            color: #FFFFFF;
-            font-size: 1rem;
-            font-style: italic;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            z-index: 5;
-            box-sizing: border-box;
-            /* NOTA: Si pusiste la frase dentro del video en Moho, 
-               puedes borrar este bloque o ponerle 'display: none;' */
-            display: none; 
+            padding: 0;
+            display: block;
+            border: none;
         }
 
-        /* CONTENEDOR DEL RELOJ REGRESIVO */
-        .contenedor-reloj {
+        /* =========================================
+           DISEÑO DEL CONTADOR (Sobre 02_invitacion)
+           ========================================= */
+        .contador-flotante {
+            position: absolute;
+            bottom: 12%; /* Ajusta este número si quieres subirlo o bajarlo */
+            left: 5%;
             width: 90%;
-            background: #111111; 
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            margin: 25px 0 15px 0;
+            background: #FFFFFF; /* Envolvente blanco solicitado */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             justify-content: space-around;
-            z-index: 3;
+            padding: 15px 0;
             box-sizing: border-box;
+            line-height: 1.2; /* Regresamos la altura de línea normal para el texto */
         }
 
         .time-box {
-            color: #D4AF37;
+            text-align: center;
         }
 
         .time-box span {
             display: block;
-            font-size: 1.8rem;
+            color: #042a67; /* Azul especificado */
+            font-size: 2rem;
             font-weight: bold;
+            font-family: 'Arial', sans-serif;
         }
 
         .time-box label {
-            color: #FFFFFF;
-            font-size: 0.65rem;
+            color: #042a67; /* Azul especificado */
+            font-size: 0.7rem;
             text-transform: uppercase;
-        }
-
-        /* INFORMACIÓN DEL EVENTO */
-        .info-evento {
-            background: rgba(245, 245, 245, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-size: 1rem;
-            width: 90%;
-            box-sizing: border-box;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .school-title {
-            color: #D4AF37;
-            font-size: 1.3rem;
             font-weight: bold;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
         }
 
-        /* BOTONES INTERACTIVOS */
-        .btn {
-            display: block;
-            background-color: #D4AF37;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 25px;
+        /* =========================================
+           DISEÑO DE LA LISTA DE ALUMNOS (Sobre 07_alumnos)
+           ========================================= */
+        .contenedor-scroll-alumnos {
+            position: absolute;
+            top: 15%;    /* Margen superior interno respecto al borde de la imagen */
+            bottom: 15%; /* Margen inferior para no tapar los adornos de abajo */
+            left: 10%;   /* Margen izquierdo para no tapar el marco blanco */
+            right: 10%;  /* Margen derecho */
+            overflow-y: auto; /* Activa el deslizamiento vertical (scroll) */
+            line-height: 1.5; /* Restablecemos el texto */
+            padding: 10px;
+        }
+
+        /* Ocultar barra de scroll estéticamente pero permitir el tacto */
+        .contenedor-scroll-alumnos::-webkit-scrollbar {
+            width: 4px;
+        }
+        .contenedor-scroll-alumnos::-webkit-scrollbar-thumb {
+            background-color: rgba(4, 42, 103, 0.3);
+            border-radius: 4px;
+        }
+
+        .alumno-item {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .alumno-nombre {
+            color: #042a67;
+            font-size: 1.2rem;
             font-weight: bold;
-            text-transform: uppercase;
-            width: 90%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            box-sizing: border-box;
+            margin: 0;
         }
 
-        .btn-whatsapp {
-            background-color: #25D366;
+        .padrino-nombre {
+            color: #555555;
+            font-size: 0.9rem;
+            margin: 0;
+            font-style: italic;
         }
     </style>
 </head>
@@ -139,41 +129,54 @@
 
     <div class="canvas-celular">
         
-        <div class="contenedor-hero-video">
-            <video class="video-portada" autoplay loop muted playsinline>
+        <div class="seccion">
+            <video autoplay loop muted playsinline>
                 <source src="portada.mp4" type="video/mp4">
-                Tu navegador no soporta videos.
             </video>
-            <p class="frase-video">
-                "La generación que dejó huella en cada uno de sus alumnos se despide como mejor sabe hacerlo: con risas, recuerdos y una alegría inmensa"
-            </p>
         </div>
 
-        <div id="countdown" class="contenedor-reloj">
-            <div class="time-box"><span id="days">00</span><label>Días</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Horas</label></div>
-            <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
-            <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
+        <div class="seccion">
+            <img src="02_invitacion.jpg" alt="Detalles de Invitación">
+            
+            <div id="countdown" class="contador-flotante">
+                <div class="time-box"><span id="days">00</span><label>Días</label></div>
+                <div class="time-box"><span id="hours">00</span><label>Horas</label></div>
+                <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
+                <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
+            </div>
         </div>
 
-        <div class="info-evento">
-            <div class="school-title">Escuela Telesecundaria Elvira Cabañez</div>
-            <p>Generación 2023 - 2026</p>
-            <p><strong>Viernes 26 de Junio de 2026</strong><br>Horario: 09:00 A.M.</p>
+        <div class="seccion">
+            <img src="03_invitadosDeHonor.png" alt="Invitados de Honor" onerror="this.src='03_invitadosDeHonor.jpg'">
         </div>
 
-        <a href="https://wa.me/1234567890?text=Hola!%20Confirmo%20mi%20asistencia%20a%20la%20graduación." target="_blank" class="btn btn-whatsapp">
-            📩 Confirmar por WhatsApp
-        </a>
+        <div class="seccion">
+            <img src="04_programa.png" alt="Programa del Evento" onerror="this.src='04_programa.jpg'">
+        </div>
 
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ceremonia+de+Graduación&dates=20260626T090000/20260626T120000" target="_blank" class="btn">
-            🗓️ Agendar Evento
-        </a>
+        <div class="seccion">
+            <img src="05_recepcion.png" alt="Recepción" onerror="this.src='05_recepcion.jpg'">
+        </div>
+
+        <div class="seccion">
+            <img src="06_fechas.png" alt="Fechas Importantes" onerror="this.src='06_fechas.jpg'">
+        </div>
+
+        <div class="seccion">
+            <img src="07_alumnos.jpg" alt="Fondo Lista de Alumnos">
+            
+            <div class="contenedor-scroll-alumnos" id="caja-lista-alumnos">
+                </div>
+        </div>
 
     </div>
 
     <script>
-        const targetDate = new Date("June 26, 2026 09:00:00").getTime();
+        // ==========================================
+        // 1. CONFIGURACIÓN DEL CONTADOR DE TIEMPO
+        // Tentativo: 16 de Julio de 2026 a las 10:00 AM
+        // ==========================================
+        const targetDate = new Date("July 16, 2026 10:00:00").getTime();
         const updateCountdown = setInterval(() => {
             const now = new Date().getTime();
             const difference = targetDate - now;
@@ -190,9 +193,41 @@
 
             if (difference < 0) {
                 clearInterval(updateCountdown);
-                document.getElementById("countdown").innerHTML = "<p style='color:#D4AF37; font-weight:bold;'>¡EL EVENTO HA COMENZADO!</p>";
+                document.getElementById("countdown").innerHTML = "<p style='color:#042a67; font-weight:bold; font-size: 1.5rem; width:100%; text-align:center;'>¡HOY ES EL GRAN DÍA!</p>";
             }
         }, 1000);
+
+        // ==========================================
+        // 2. GENERADOR DE LISTA DE ALUMNOS (SIMULADOR DE EXCEL)
+        // ==========================================
+        // Cuando tengas la lista real en Excel, podemos hacer que lea un archivo .csv
+        // Por ahora, solo reemplaza o copia estas líneas con los nombres reales.
+        
+        const listaAlumnosExcel = [
+            { alumno: "Lorem Ipsum Dolor", padrino: "Padrino: Amet Consectetur" },
+            { alumno: "Adipiscing Elit", padrino: "Padrino: Sed Do Eiusmod" },
+            { alumno: "Tempor Incididunt", padrino: "Padrino: Ut Labore Et" },
+            { alumno: "Dolore Magna Aliqua", padrino: "Padrino: Ut Enim Ad" },
+            { alumno: "Minim Veniam", padrino: "Padrino: Quis Nostrud" },
+            { alumno: "Exercitation Ullamco", padrino: "Padrino: Laboris Nisi" },
+            { alumno: "Ut Aliquip Ex", padrino: "Padrino: Ea Commodo" },
+            { alumno: "Consequat Duis Aute", padrino: "Padrino: Irure Dolor" },
+            { alumno: "In Reprehenderit", padrino: "Padrino: In Voluptate" },
+            { alumno: "Velit Esse Cillum", padrino: "Padrino: Dolore Eu" }
+        ];
+
+        // Esta función inyecta los nombres en el diseño visual de la caja
+        const cajaAlumnos = document.getElementById("caja-lista-alumnos");
+        
+        listaAlumnosExcel.forEach(datos => {
+            const itemHTML = `
+                <div class="alumno-item">
+                    <p class="alumno-nombre">${datos.alumno}</p>
+                    <p class="padrino-nombre">${datos.padrino}</p>
+                </div>
+            `;
+            cajaAlumnos.innerHTML += itemHTML;
+        });
     </script>
 </body>
 </html>
