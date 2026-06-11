@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ceremonia de Graduación</title>
     <style>
-        /* RESETEO TOTAL: Cero márgenes y ceros espacios para que todo sea continuo */
+        /* RESETEO TOTAL */
         html, body {
             margin: 0;
             padding: 0;
-            background-color: #000000; /* Fondo negro por si la pantalla es muy ancha */
+            background-color: #000000; 
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* LIENZO VIRTUAL: Tamaño fijo de celular al centro */
         .canvas-celular {
             max-width: 450px;
             width: 100%;
@@ -24,16 +23,14 @@
             flex-direction: column;
         }
 
-        /* SECCIONES: Esto elimina la línea blanca invisible entre imágenes */
         .seccion {
             width: 100%;
-            position: relative; /* Necesario para que floten cosas encima */
+            position: relative; 
             line-height: 0;
             font-size: 0;
             display: block;
         }
 
-        /* LAS IMÁGENES Y VIDEO: Ajuste exacto a los bordes */
         .seccion img, .seccion video {
             width: 100%;
             height: auto;
@@ -44,21 +41,22 @@
         }
 
         /* =========================================
-           DISEÑO DEL CONTADOR (Sobre 02_invitacion)
+           1. DISEÑO DEL CONTADOR (REDUCIDO AL 70%)
            ========================================= */
         .contador-flotante {
             position: absolute;
-            bottom: 16%; /* Ajusta este número si quieres subirlo o bajarlo */
-            left: 5%;
-            width: 90%;
-            background: #FFFFFF; /* Envolvente blanco solicitado */
-            border-radius: 15px;
+            bottom: 12%; 
+            left: 50%; /* Centrado perfecto */
+            transform: translateX(-50%); /* Centrado perfecto */
+            width: 65%; /* Reducido del 90% original */
+            background: #FFFFFF; 
+            border-radius: 10px; /* Bordes un poco más sutiles */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             justify-content: space-around;
-            padding: 15px 0;
+            padding: 10px 0; /* Menos padding */
             box-sizing: border-box;
-            line-height: 1.2; /* Regresamos la altura de línea normal para el texto */
+            line-height: 1.2; 
         }
 
         .time-box {
@@ -67,35 +65,57 @@
 
         .time-box span {
             display: block;
-            color: #042a67; /* Azul especificado */
-            font-size: 2rem;
+            color: #042a67; 
+            font-size: 1.4rem; /* Reducido de 2rem */
             font-weight: bold;
             font-family: 'Arial', sans-serif;
         }
 
         .time-box label {
-            color: #042a67; /* Azul especificado */
-            font-size: 0.7rem;
+            color: #042a67; 
+            font-size: 0.5rem; /* Reducido de 0.7rem */
             text-transform: uppercase;
             font-weight: bold;
             font-family: 'Arial', sans-serif;
         }
 
         /* =========================================
-           DISEÑO DE LA LISTA DE ALUMNOS (Sobre 07_alumnos)
+           2. BOTÓN DE UBICACIÓN (Para la sección 05)
+           ========================================= */
+        .btn-ubicacion {
+            position: absolute;
+            top: 38%; /* <<-- CAMBIA ESTE NÚMERO PARA SUBIRLO O BAJARLO */
+            left: 50%;
+            transform: translateX(-50%); /* Esto lo mantiene siempre al centro */
+            background-color: #D4AF37; /* Dorado */
+            color: #FFFFFF; /* Texto Blanco */
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 5;
+            white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+            line-height: 1.5; /* Restaura la altura de línea para el texto del botón */
+        }
+
+        /* =========================================
+           3. DISEÑO DE LA LISTA DE ALUMNOS (SCROLL)
            ========================================= */
         .contenedor-scroll-alumnos {
             position: absolute;
-            top: 15%;    /* Margen superior interno respecto al borde de la imagen */
-            bottom: 15%; /* Margen inferior para no tapar los adornos de abajo */
-            left: 10%;   /* Margen izquierdo para no tapar el marco blanco */
-            right: 10%;  /* Margen derecho */
-            overflow-y: auto; /* Activa el deslizamiento vertical (scroll) */
-            line-height: 1.5; /* Restablecemos el texto */
+            top: 15%;    
+            bottom: 15%; 
+            left: 10%;   
+            right: 10%;  
+            overflow-y: auto; 
+            line-height: 1.5; 
             padding: 10px;
         }
 
-        /* Ocultar barra de scroll estéticamente pero permitir el tacto */
         .contenedor-scroll-alumnos::-webkit-scrollbar {
             width: 4px;
         }
@@ -136,7 +156,7 @@
         </div>
 
         <div class="seccion">
-            <img src="02_invitacion.png" alt="Detalles de Invitación">
+            <img src="02_invitacion.png" alt="Detalles de Invitación" onerror="this.src='02_invitacion.jpg'">
             
             <div id="countdown" class="contador-flotante">
                 <div class="time-box"><span id="days">00</span><label>Días</label></div>
@@ -156,6 +176,10 @@
 
         <div class="seccion">
             <img src="05_recepcion.png" alt="Recepción" onerror="this.src='05_recepcion.jpg'">
+            
+            <a href="https://share.google/0f9iJmaEovQVdK2ZC" target="_blank" class="btn-ubicacion">
+                📍 Ubicación
+            </a>
         </div>
 
         <div class="seccion">
@@ -163,7 +187,7 @@
         </div>
 
         <div class="seccion">
-            <img src="07_alumnos.png" alt="Fondo Lista de Alumnos">
+            <img src="07_alumnos.png" alt="Fondo Lista de Alumnos" onerror="this.src='07_alumnos.jpg'">
             
             <div class="contenedor-scroll-alumnos" id="caja-lista-alumnos">
                 </div>
@@ -172,10 +196,7 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. CONFIGURACIÓN DEL CONTADOR DE TIEMPO
-        // Tentativo: 16 de Julio de 2026 a las 10:00 AM
-        // ==========================================
+        // CONTADOR
         const targetDate = new Date("July 16, 2026 10:00:00").getTime();
         const updateCountdown = setInterval(() => {
             const now = new Date().getTime();
@@ -193,16 +214,11 @@
 
             if (difference < 0) {
                 clearInterval(updateCountdown);
-                document.getElementById("countdown").innerHTML = "<p style='color:#042a67; font-weight:bold; font-size: 1.5rem; width:100%; text-align:center;'>¡HOY ES EL GRAN DÍA!</p>";
+                document.getElementById("countdown").innerHTML = "<p style='color:#042a67; font-weight:bold; font-size: 1.1rem; width:100%; text-align:center;'>¡HOY ES EL GRAN DÍA!</p>";
             }
         }, 1000);
 
-        // ==========================================
-        // 2. GENERADOR DE LISTA DE ALUMNOS (SIMULADOR DE EXCEL)
-        // ==========================================
-        // Cuando tengas la lista real en Excel, podemos hacer que lea un archivo .csv
-        // Por ahora, solo reemplaza o copia estas líneas con los nombres reales.
-        
+        // LISTA DE ALUMNOS (SIMULADOR DE EXCEL)
         const listaAlumnosExcel = [
             { alumno: "Lorem Ipsum Dolor", padrino: "Padrino: Amet Consectetur" },
             { alumno: "Adipiscing Elit", padrino: "Padrino: Sed Do Eiusmod" },
@@ -216,9 +232,7 @@
             { alumno: "Velit Esse Cillum", padrino: "Padrino: Dolore Eu" }
         ];
 
-        // Esta función inyecta los nombres en el diseño visual de la caja
         const cajaAlumnos = document.getElementById("caja-lista-alumnos");
-        
         listaAlumnosExcel.forEach(datos => {
             const itemHTML = `
                 <div class="alumno-item">
