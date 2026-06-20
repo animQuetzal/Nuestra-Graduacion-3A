@@ -227,7 +227,7 @@
                 const cajaAlumnos = document.getElementById("caja-lista-alumnos");
                 cajaAlumnos.innerHTML = ""; 
 
-                for (let i = 1; i < renglones.length; i++) {
+                for (let i = 0; i < renglones.length; i++) {
                     if (renglones[i].trim() === "") continue; 
 
                     const columnas = renglones[i].split(/[,;]/);
